@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Пешехонов Захар">
+  <meta name="description" content="Сервис Место, в Практикуме">
+  <meta name="keywords" content="html, css, javascript">
+  <title>Сервис Место</title>
+  <link rel="stylesheet" href="pages/index.css">
+</head>
+
+<body class="page border">
+  <header class="header border">
+    <img class="header__logo" src="./images/logo-mesto.svg" alt="Лого проекта Место">
+    <hr class="header__line">
+  </header>
+
+  <main>
+    <section class="profile border">
+      <div class="profile__avatar ">
+        <img class="profile__image " src="./images/profile-logo.jpg" alt="Фото профиля Жак Ив Кусто">  
+      </div>
+      <div class="profile__container ">
+        <div class="profile__info ">
+          <div class="profile__title ">
+            <h1 class="profile__title-text ">Жак-Ив Кусто</h1>
+            <div class="button profile__edit-button">
+              <img class="button__image" src="./images/buttons/edit.svg">
+            </div>
+          </div>
+            <p class="profile__description ">Исследователь океана</p>
+        </div>
+        <!-- <div class="button profile__add-button">
+          <img class="button__image" src="./images/buttons/plus.svg">
+        </div> -->
+        <input class="input__button profile__add-button border" type="submit" value="" id="add-button" >
+      </div>
+    </section>
+
+    <section class="elements border">
+      
+      <div class="element ">
+        <img src="./images/places/karachaevsk.jpg" class="element__image " alt="">
+        <div class="element__footer ">
+          <p class="element__text">Карачаевск</p>
+          <label for="like_0">
+            <input class="invisible__like" type="checkbox" name="like" value="like" id="like_0">
+            <span class="pseudo__like pseudo__like_type_checkbox"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="element ">
+        <img src="./images/places/elbrus.jpg" class="element__image " alt="">
+        <div class="element__footer ">
+          <p class="element__text">Гора Эльбрус</p>
+          <label for="like_1">
+            <input class="invisible__like" type="checkbox" name="like" value="like" id="like_1">
+            <span class="pseudo__like pseudo__like_type_checkbox"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="element ">
+        <img src="./images/places/dombay.jpg" class="element__image " alt="">
+        <div class="element__footer ">
+          <p class="element__text">Домбай</p>
+          <label for="like_2">
+            <input class="invisible__like" type="checkbox" name="like" value="like" id="like_2">
+            <span class="pseudo__like pseudo__like_type_checkbox"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="element ">
+        <img src="./images/places/karachaevsk.jpg" class="element__image " alt="">
+        <div class="element__footer ">
+          <p class="element__text">Карачаево-Черкесск</p>
+          <label for="like_3">
+            <input class="invisible__like" type="checkbox" name="like" value="like" id="like_3">
+            <span class="pseudo__like pseudo__like_type_checkbox"></span>
+          </label>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="popup">
+      <div class="popup__container ">
+        <label for="close-button" class="popup__label ">
+          <input type="button" class="popup__close-button " id="close-button">
+          <span class="popup__pseudo-close-button "></span>
+        </label>
+        <h2 class="popup__title ">Редактировать профиль</h2>
+        <input class="input input__placeholder popup__input" type="text" id="profile-name" placeholder="Жак-Ив Кусто" required>
+        <hr class="popup__line">
+        <input class="input input__placeholder popup__input" type="text" id="profile-text" placeholder="Исследователь океана" required>
+        <hr class=" popup__line">
+        <input class="input__button popup__submit-button" type="submit" value="Сохранить" id="popup-submit">
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer ">
+    <p class="footer__text">&copy 2020 Mesto Russia</p>
+  </footer>
+
+</body>
+</html>

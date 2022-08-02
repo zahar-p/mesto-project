@@ -1,0 +1,12 @@
+.elements {
+  margin: auto;
+  width: 100%;
+  max-width: 880px;
+  margin-top: 46px;
+  margin-bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  row-gap: 20px;
+  column-gap: 17px;
+}

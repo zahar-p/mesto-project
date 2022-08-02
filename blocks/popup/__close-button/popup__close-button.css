@@ -1,0 +1,33 @@
+.popup__close-button {
+  /* width: 32px;
+  height: 32px;
+  position: relative;
+  top: -40px;
+  left: calc( 100% + 8px );
+  background-color: black; */
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  display: none;
+}
+
+.popup__label {
+  position: absolute;
+  top: -40px;
+  left: calc( 100% + 8px );
+}
+
+.popup__pseudo-close-button:hover {
+  opacity: 0.5;
+}
+
+.popup__pseudo-close-button {
+  display: inline-block; /* элемент span теперь сможет принимать определённую ширину и высоту */
+  vertical-align: middle; /* элемент и текст будут правильно выровнены по вертикали. Работает в паре с inline-block */
+  width: 32px;
+  height: 32px;
+  background-image: url('../../../images/buttons/close.svg');
+  cursor: pointer;
+}
+
