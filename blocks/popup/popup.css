@@ -1,6 +1,7 @@
 .popup {
   width: 100vw;
   height: 100vh;
+  min-width: 320px;
   position: fixed;
   top: 0px;
   background-color: rgba(0,0,0,0.5);
