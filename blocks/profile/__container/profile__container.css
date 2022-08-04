@@ -1,8 +1,8 @@
 .profile__container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  width: calc( 100% - 120px );
-  
+  flex-grow: 1
 }

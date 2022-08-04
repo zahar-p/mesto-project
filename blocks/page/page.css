@@ -3,10 +3,12 @@
   background: #000;
   font-family: 'Inter', Arial, sans-serif;
   color: #fff;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
+
   max-width: 1280px;
   min-width: 320px;
 
@@ -17,10 +19,8 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
-  
-  /* position: relative; */
-
 }
+
 .border {
   border: 1px solid red;
 }

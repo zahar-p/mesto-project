@@ -1,10 +1,4 @@
 .popup__close-button {
-  /* width: 32px;
-  height: 32px;
-  position: relative;
-  top: -40px;
-  left: calc( 100% + 8px );
-  background-color: black; */
   width: 1px;
   height: 1px;
   overflow: hidden;
@@ -15,7 +9,7 @@
 .popup__label {
   position: absolute;
   top: -40px;
-  left: calc( 100% + 8px );
+  left: calc(100% + 8px);
 }
 
 .popup__pseudo-close-button:hover {
@@ -23,11 +17,25 @@
 }
 
 .popup__pseudo-close-button {
-  display: inline-block; /* элемент span теперь сможет принимать определённую ширину и высоту */
-  vertical-align: middle; /* элемент и текст будут правильно выровнены по вертикали. Работает в паре с inline-block */
+  display: inline-block;
+  /* элемент span теперь сможет принимать определённую ширину и высоту */
+  vertical-align: middle;
+  /* элемент и текст будут правильно выровнены по вертикали. Работает в паре с inline-block */
   width: 32px;
   height: 32px;
   background-image: url('../../../images/buttons/close.svg');
   cursor: pointer;
 }
 
+@media screen and (max-width: 600px) {
+  .popup__pseudo-close-button {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+  }
+
+  .popup__label {
+    top: -36px;
+    left: calc(100% - 20px);
+  }
+}

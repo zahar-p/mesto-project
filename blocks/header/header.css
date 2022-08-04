@@ -1,9 +1,21 @@
 .header {
-    margin: auto;
+  margin: auto;
+  margin-top: 45px;
+  margin-bottom: 0;
+  margin-left: 19px;
+  margin-right: 19px;
+
+  width: calc(100% - 38px);
+  max-width: 880px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    margin-top: 28px;
     width: 100%;
-    max-width: 880px;
-    margin-top: 45px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; 
+  }
 }

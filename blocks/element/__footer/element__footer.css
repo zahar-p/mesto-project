@@ -1,5 +1,5 @@
 .element__footer {
-  max-width: 246px;
+  min-width: 246px;
   margin-top: 25px;
   margin-bottom: 25px;
   margin-right: 15px;

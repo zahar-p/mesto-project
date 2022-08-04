@@ -1,5 +1,14 @@
 .header__logo {
-    align-self: start;
-    max-width: 142px;
-    width: 100%;
+  align-self: start;
+  max-width: 142px;
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .header__logo {
+    margin: auto;
+    margin-top: 28px;
+    margin-left: 27px;
+    max-width: 104px;
+  }
 }
