@@ -1,14 +1,17 @@
 .header__logo {
-  align-self: start;
+  margin: auto;
+  margin-top: 45px;
+  margin-left: 0;
   max-width: 142px;
   width: 100%;
+  margin-bottom: 41px;
 }
 
 @media screen and (max-width: 767px) {
   .header__logo {
-    margin: auto;
     margin-top: 28px;
     margin-left: 27px;
+    margin-bottom: 32px;
     max-width: 104px;
   }
 }

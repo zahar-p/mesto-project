@@ -1,40 +1,23 @@
 .popup__close-button {
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  display: none;
-}
-
-.popup__label {
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  background-image: url('../../../images/buttons/close.svg');
+  border: 0;
   position: absolute;
   top: -40px;
   left: calc(100% + 8px);
 }
 
-.popup__pseudo-close-button:hover {
+.popup__close-button:hover {
   opacity: 0.5;
 }
 
-.popup__pseudo-close-button {
-  display: inline-block;
-  /* элемент span теперь сможет принимать определённую ширину и высоту */
-  vertical-align: middle;
-  /* элемент и текст будут правильно выровнены по вертикали. Работает в паре с inline-block */
-  width: 32px;
-  height: 32px;
-  background-image: url('../../../images/buttons/close.svg');
-  cursor: pointer;
-}
-
 @media screen and (max-width: 600px) {
-  .popup__pseudo-close-button {
+  .popup__close-button {
     width: 20px;
     height: 20px;
     background-size: contain;
-  }
-
-  .popup__label {
     top: -36px;
     left: calc(100% - 20px);
   }

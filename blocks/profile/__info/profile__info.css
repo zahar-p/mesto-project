@@ -3,7 +3,7 @@
   flex-grow: 1;
 }
 
-@media screen and (max-width: 655px) {
+@media screen and (max-width: 680px) {
   .profile__info {
     margin-top: 26px;
     min-width: 282px;

@@ -11,115 +11,88 @@
   <link rel="stylesheet" href="pages/index.css">
 </head>
 
-<body class="page ">
+<body class="page">
   <header class="header ">
     <img class="header__logo" src="./images/logo-mesto.svg" alt="Лого проекта Место">
-    <hr class="header__line">
   </header>
 
   <main class="main ">
     <section class="profile ">
-      <div class="profile__avatar ">
-        <img class="profile__image " src="./images/profile-logo.jpg" alt="Фото профиля Жак Ив Кусто">
-      </div>
+      <img class="profile__image " src="./images/profile-logo.jpg" alt="Фото профиля Жак Ив Кусто">
       <div class="profile__container ">
         <div class="profile__info ">
           <div class="profile__title ">
             <h1 class="profile__title-text ">Жак-Ив Кусто</h1>
-            <div class="button profile__edit-button ">
-              <img class="button__image" src="./images/buttons/edit.svg" alt="кнопка редактировать.">
-            </div>
+            <button class="button profile__edit-button" type="button"></button>
           </div>
           <p class="profile__description ">Исследователь океана</p>
         </div>
       </div>
-      <input class="input__button profile__add-button " type="submit" value="" id="add-button">
+      <button class="button profile__add-button " type="button" value="" id="add-button">
     </section>
 
-    <section class="elements ">
-
+    <section class="elements">
       <div class="element ">
-        <img src="./images/places/karachaevsk.jpg" class="element__image " alt="">
+        <img src="./images/places/karachaevsk.jpg" class="element__image " alt="Карачаевск.">
         <div class="element__footer ">
-          <p class="element__text">Карачаевск</p>
-          <label for="like_0">
-            <input class="invisible__like" type="checkbox" name="like" value="like" id="like_0">
-            <span class="pseudo__like pseudo__like_type_checkbox"></span>
-          </label>
+          <h2 class="element__text">Карачаевск</h2>
+          <button class="button element__like element__like_unchecked" type="submit"></button>
         </div>
       </div>
 
       <div class="element ">
-        <img src="./images/places/elbrus.jpg" class="element__image " alt="">
+        <img src="./images/places/elbrus.jpg" class="element__image " alt="Эльбрус.">
         <div class="element__footer ">
-          <p class="element__text">Гора Эльбрус</p>
-          <label for="like_1">
-            <input class="invisible__like" type="checkbox" name="like" value="like" id="like_1">
-            <span class="pseudo__like pseudo__like_type_checkbox"></span>
-          </label>
+          <h2 class="element__text">Гора Эльбрус</h2>
+          <button class="button element__like element__like_checked" type="submit"></button>
         </div>
       </div>
 
       <div class="element ">
-        <img src="./images/places/dombay.jpg" class="element__image " alt="">
+        <img src="./images/places/dombay.jpg" class="element__image " alt="Домбай.">
         <div class="element__footer ">
-          <p class="element__text">Домбай</p>
-          <label for="like_2">
-            <input class="invisible__like" type="checkbox" name="like" value="like" id="like_2">
-            <span class="pseudo__like pseudo__like_type_checkbox"></span>
-          </label>
+          <h2 class="element__text">Домбай</h2>
+          <button class="button element__like element__like_unchecked" type="submit"></button>
         </div>
       </div>
 
       <div class="element ">
-        <img src="./images/places/karachaevsk.jpg" class="element__image " alt="">
+        <img src="./images/places/karachaevsk.jpg" class="element__image " alt="Карачаево-Черкесск.">
         <div class="element__footer ">
-          <p class="element__text">Карачаево-Черкесск</p>
-          <label for="like_3">
-            <input class="invisible__like" type="checkbox" name="like" value="like" id="like_3">
-            <span class="pseudo__like pseudo__like_type_checkbox"></span>
-          </label>
+          <h2 class="element__text">Карачаево-Черкесск</h2>
+          <button class="button element__like element__like_checked" type="submit"></button>
         </div>
       </div>
 
       <div class="element ">
-        <img src="./images/places/karachaevsk.jpg" class="element__image " alt="">
+        <img src="./images/places/karachaevsk.jpg" class="element__image " alt="Карачаевск.">
         <div class="element__footer ">
-          <p class="element__text">Карачаевск</p>
-          <label for="like_4">
-            <input class="invisible__like" type="checkbox" name="like" value="like" id="like_4">
-            <span class="pseudo__like pseudo__like_type_checkbox"></span>
-          </label>
+          <h2 class="element__text">Карачаевск</h2>
+          <button class="button element__like element__like_checked" type="submit"></button>
         </div>
       </div>
 
       <div class="element ">
-        <img src="./images/places/elbrus.jpg" class="element__image " alt="">
+        <img src="./images/places/elbrus.jpg" class="element__image " alt="Эльбрус.">
         <div class="element__footer ">
-          <p class="element__text">Гора Эльбрус</p>
-          <label for="like_5">
-            <input class="invisible__like" type="checkbox" name="like" value="like" id="like_5">
-            <span class="pseudo__like pseudo__like_type_checkbox"></span>
-          </label>
+          <h2 class="element__text">Гора Эльбрус</h2>
+          <button class="button element__like element__like_checked" type="submit"></button>
         </div>
       </div>
-
     </section>
 
-    <section class="popup popup_visible">
+    <!-- <section class="popup popup_visible"> -->
+      <section class="popup ">
       <div class="popup__container ">
-        <label for="close-button" class="popup__label ">
-          <input type="button" class="popup__close-button " value="close-button"  id="close-button">
-          <span class="popup__pseudo-close-button "></span>
-        </label>
+        <button class="button popup__close-button" type="button"></button>
         <h2 class="popup__title ">Редактировать профиль</h2>
-        <input class="input input__placeholder popup__input" type="text" id="profile-name" placeholder="Жак-Ив Кусто"
-          required>
-        <hr class="popup__line">
-        <input class="input input__placeholder popup__input" type="text" id="profile-text"
-          placeholder="Исследователь океана" required>
-        <hr class=" popup__line">
-        <input class="input__button popup__submit-button" type="submit" value="Сохранить" id="popup-submit">
+        <form class="popup__form " name="edit-profile" >
+          <input class="popup__input " type="text" id="profile-name" placeholder="Жак-Ив Кусто"
+            required name="profile-name">
+          <input class="popup__input " type="text" id="profile-text"
+            placeholder="Исследователь океана" required name="profile-text">
+          <button class="button popup__submit-button" type="submit" id="popup-submit">Сохранить</button>
+        </form>
       </div>
     </section>
 

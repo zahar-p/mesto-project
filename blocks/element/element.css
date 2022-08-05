@@ -1,6 +1,5 @@
 .element {
   min-width: 282px;
-  min-height: 362px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
