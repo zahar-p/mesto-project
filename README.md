@@ -9,8 +9,8 @@
 * HTML
 * CSS
 
-[Ссылка на проект на GitHub Pages](https://github.com/zahar-p/mesto-project "Сервис Место")
+[Ссылка на проект на GitHub Pages](https://zahar-p.github.io/mesto-project/ "Сервис Место")
 
-[Ссылка на репозиторий GitHub](https://zahar-p.github.io/mesto-project/ "https://zahar-p.github.io/mesto-project/")
+[Ссылка на репозиторий GitHub](https://github.com/zahar-p/mesto-project "https://zahar-p.github.io/mesto-project/")
 
 2022. Пешехонов Захар 
