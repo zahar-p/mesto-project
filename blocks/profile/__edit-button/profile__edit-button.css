@@ -6,7 +6,7 @@
   background-size: 10px 10px;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 690px) {
   .profile__edit-button {
     position: absolute;
     left: calc(100% - 25px - 20px);
