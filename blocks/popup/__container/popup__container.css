@@ -2,7 +2,6 @@
   margin: auto;
   min-width: 430px;
   min-height: 330px;
-  margin-top: 195px;
   background-color: #FFF;
   border-radius: 10px;
   position: relative;
@@ -13,7 +12,6 @@
 
 @media screen and (max-width: 600px) {
   .popup__container {
-    margin-top: 123px;
     min-width: 282px;
     min-height: 322px;
   }

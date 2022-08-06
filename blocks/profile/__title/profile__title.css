@@ -3,15 +3,12 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 @media screen and (max-width: 690px) {
   .profile__title {
     justify-content: center;
     position: relative;
+    width: 100%;
   }
 }
-
