@@ -2,8 +2,11 @@
   object-fit: cover;
   object-position: center;
   width: 120px;
-  margin-right: 25px;
+  height: 120px;
+  margin-right: 30px;
   border-radius: 50%;
+  border: 0;
+  margin-top: 0px;
 }
 
 @media screen and (max-width: 680px) {
