@@ -1,6 +1,8 @@
 .profile__title-text {
   margin: 0 0 0 0;
 
+  max-width: 294px;
+
   text-align: left;
   align-self: flex-end;
 
@@ -16,8 +18,10 @@
 
 @media screen and (max-width: 690px) {
   .profile__title-text {
+    max-width: 189px;
     font-size: 27px;
     line-height: 33px;
+
     text-align: center;
     align-self: center;
     margin-left: 26px;
