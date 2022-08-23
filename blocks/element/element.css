@@ -1,9 +1,11 @@
 .element {
-  min-width: 282px;
+  /* min-width: 282px; */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
+  justify-content: space-between;
   align-items: center;
   background-color: #fff;
   border-radius: 10px;
+  position: relative;
 }

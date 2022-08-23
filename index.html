@@ -32,70 +32,61 @@
     </section>
 
     <section class="elements">
-      <div class="element ">
+      <!-- <div class="element ">
+        <button class="button element__delete" type="button"></button>
         <img src="./images/places/karachaevsk.jpg" class="element__image " alt="Карачаевск.">
         <div class="element__footer ">
           <h2 class="element__text">Карачаевск</h2>
-          <button class="button element__like element__like_unchecked" type="button" ></button>
+          <button class="button element__like element__like_unchecked" type="button"></button>
         </div>
-      </div>
+      </div> -->
+    </section>
 
-      <div class="element ">
-        <img src="./images/places/elbrus.jpg" class="element__image " alt="Эльбрус.">
-        <div class="element__footer ">
-          <h2 class="element__text">Гора Эльбрус</h2>
-          <button class="button element__like element__like_checked" type="button" ></button>
-        </div>
-      </div>
-
-      <div class="element ">
-        <img src="./images/places/dombay.jpg" class="element__image " alt="Домбай.">
-        <div class="element__footer ">
-          <h2 class="element__text">Домбай</h2>
-          <button class="button element__like element__like_unchecked" type="button" ></button>
-        </div>
-      </div>
-
-      <div class="element ">
-        <img src="./images/places/karachaevsk.jpg" class="element__image " alt="Карачаево-Черкесск.">
-        <div class="element__footer ">
-          <h2 class="element__text">Карачаево-Черкесск</h2>
-          <button class="button element__like element__like_checked" type="button" ></button>
-        </div>
-      </div>
-
-      <div class="element ">
-        <img src="./images/places/karachaevsk.jpg" class="element__image " alt="Карачаевск.">
-        <div class="element__footer ">
-          <h2 class="element__text">Карачаевск</h2>
-          <button class="button element__like element__like_checked" type="button" ></button>
-        </div>
-      </div>
-
-      <div class="element ">
-        <img src="./images/places/elbrus.jpg" class="element__image " alt="Эльбрус.">
-        <div class="element__footer ">
-          <h2 class="element__text">Гора Эльбрус</h2>
-          <button class="button element__like element__like_checked" type="button" ></button>
-        </div>
+    <section class="popup popup_invisible popup_style_opacity_dark" id="display-picture">
+      <div class="popup__image-container ">
+        <button class="button popup__close-button" type="button"></button>
+        <img class="popup__image" src="" alt="">
+        <p class="popup__image-description">popup__image-description</p>
       </div>
     </section>
 
-    <!-- <section class="popup popup_visible"> -->
-    <section class="popup ">
+    <section class="popup popup_invisible" id="edit-profile-window">
       <div class="popup__container ">
         <button class="button popup__close-button" type="button"></button>
         <h2 class="popup__title ">Редактировать профиль</h2>
         <form class="popup__form " name="edit-profile">
           <input class="popup__input " type="text" id="profile-name" placeholder="Жак-Ив Кусто" required
             name="profile-name">
-          <input class="popup__input " type="text" id="profile-text" placeholder="Исследователь океана" required
+          <input class="popup__input " type="text" id="profile-description" placeholder="Исследователь океана" required
             name="profile-text">
-          <button class="button popup__submit-button" type="submit" id="popup-submit">Сохранить</button>
+          <button class="button popup__submit-button" type="submit" id="edit-profile-submit">Сохранить</button>
         </form>
       </div>
     </section>
 
+    <section class="popup popup_invisible" id="add-card-window">
+      <div class="popup__container ">
+        <button class="button popup__close-button" type="button"></button>
+        <h2 class="popup__title ">Новое место</h2>
+        <form class="popup__form " name="add-card">
+          <input class="popup__input " type="text" id="card-name" placeholder="Название" required name="profile-name">
+          <input class="popup__input " type="text" id="card-url" placeholder="Ссылка на картинку" required
+            name="profile-text">
+          <button class="button popup__submit-button" type="submit" id="add-card-submit">Создать</button>
+        </form>
+      </div>
+    </section>
+
+    <template id="card-template">
+      <div class="element ">
+        <button class="button element__delete" type="button"></button>
+        <img src="" class="element__image " alt="">
+        <div class="element__footer ">
+          <h2 class="element__text"></h2>
+          <button class="button element__like element__like_unchecked" type="button"></button>
+        </div>
+      </div>
+    </template>
   </main>
 
   <footer class="footer ">

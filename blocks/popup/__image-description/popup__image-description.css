@@ -1,0 +1,10 @@
+.popup__image-description {
+  margin: 0;
+  position: absolute;
+  min-width: 240px;
+  left: 0;
+  bottom: -22px ;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+}
