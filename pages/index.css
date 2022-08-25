@@ -38,7 +38,6 @@
 @import url('../blocks/element/element.css');
 @import url('../blocks/element/__like/element__like.css');
 @import url('../blocks/element/__like/_checked/element__like_checked.css');
-@import url('../blocks/element/__like/_checked/element__like_unchecked.css');
 @import url('../blocks/element/__image/element__image.css');
 @import url('../blocks/element/__footer/element__footer.css');
 @import url('../blocks/element/__text/element__text.css');

@@ -1,5 +1,3 @@
-console.log('script added');
-
 const initialCards = [
   { name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' },
   { name: 'Челябинская область', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg' },
@@ -9,107 +7,111 @@ const initialCards = [
   { name: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg' }
 ];
 
+//form fields
+const profileName = document.querySelector('.profile__title-text');
+const profileDescription = document.querySelector('.profile__description');
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
-const closePopupButtons = document.querySelectorAll('.popup__close-button');
-const submitButtons = document.querySelectorAll('.popup__submit-button');
-
 const cardsContainer = document.querySelector('.elements');
-const cards = document.querySelectorAll('.element__like');
-const cardImages = document.querySelectorAll('.element__image');
-const deleteButtons = document.querySelectorAll('.element__delete');
+const cardTemplate = document.querySelector('#card-template');
+
+// popups
+const editProfilePopup = document.querySelector('#edit-profile-window');
+const profileNameInput = document.querySelector('#profile-name');
+const profileDescriptionInput = document.querySelector('#profile-description');
+const editProfileSubmitButton = document.querySelector('#edit-profile-submit');
+
+const addCardPopup = document.querySelector('#add-card-window');
+const pictureNameInput = document.querySelector('#card-name');
+const pictureUrlInput = document.querySelector('#card-url');
+const saveCardButton = document.querySelector('#add-card-submit');
+
+const showPicturePopup = document.querySelector(`#display-picture`);
+const popupImage = showPicturePopup.querySelector('.popup__image');
+const popupImageDesc = showPicturePopup.querySelector('.popup__image-description');
+
+const closePopupButtons = document.querySelectorAll('.popup__close-button');
+
+function openPopup(window) {
+  window.classList.add('popup_visible');
+  window.classList.remove('popup_invisible');
+}
+
+function closePopup(window) {
+  window.classList.remove('popup_visible');
+  window.classList.add('popup_invisible');
+}
 
 function openEditProfileWindow() {
-  openPopup('edit-profile-window');
+  profileDescriptionInput.value = profileDescription.textContent;
+  profileNameInput.value = profileName.textContent;
+  openPopup(editProfilePopup);
 }
 
 function openAddCardWindow() {
-  openPopup('add-card-window');
+  openPopup(addCardPopup);
 }
 
 function openImageWindow(event) {
-  console.log(`open image clicked`)
-  console.dir(event.target)
-  const popupWindow = document.querySelector(`#display-picture`);
   const src = event.target.src;
   const alt = event.target.alt;
-  popupWindow.querySelector('.popup__image').src = src;
-  popupWindow.querySelector('.popup__image').alt = alt;
-  popupWindow.querySelector('.popup__image-description').textContent = alt;
-  
-  popupWindow.classList.add('popup_visible');
-  popupWindow.classList.remove('popup_invisible');
-}
-function openPopup(type) {
-  console.log(`open ${type} clicked`)
-  let popupWindow = document.querySelector(`#${type}`);
-  popupWindow.classList.add('popup_visible');
-  popupWindow.classList.remove('popup_invisible');
+  popupImage.src = src;
+  popupImage.alt = alt;
+  popupImageDesc.textContent = alt;
+  openPopup(showPicturePopup);
 }
 
 function closePopupWindow() {
-  let popupWindow = document.querySelector('.popup_visible');
-  popupWindow.classList.remove('popup_visible');
-  popupWindow.classList.add('popup_invisible');
+  const popupWindow = document.querySelector('.popup_visible');
+  closePopup(popupWindow);
 }
 
-function popupSubmitButtonClicked(event) {
+function handleSubmitProfileButton(event) {
   event.preventDefault();
-  console.log(`submit for ${event.target.id} clicked`);
-  console.dir(event.target);
-  if (event.target.id === 'add-card-submit') {
-    const pictureName = document.querySelector('#card-name').value;
-    const pictureUrl = document.querySelector('#card-url').value;
-    addCard(pictureName, pictureUrl);
-  } else if (event.target.id = 'edit-profile-window') {
-    const profileName = document.querySelector('#profile-name').value;
-    const profileDescription = document.querySelector('#profile-description').value;
-    submitNewProfileData(profileName, profileDescription);
-  }
+  submitNewProfileData(profileNameInput.value, profileDescriptionInput.value);
   closePopupWindow();
 }
 
-function addCard(pictureName, pictureUrl) {
-  const template = document.querySelector('#card-template').content;
-  const newCard = template.querySelector('.element').cloneNode(true);
-  newCard.querySelector('.element__text').textContent = pictureName;
-  newCard.querySelector('.element__image').src = pictureUrl;
-  newCard.querySelector('.element__image').alt = pictureName;
-  newCard.querySelector('.element__image').addEventListener('click', openImageWindow);
-  newCard.addEventListener('click', likeButtonClicked);
+function handleSaveCardButton(event) {
+  event.preventDefault();
+  renderCard(pictureNameInput.value, pictureUrlInput.value);
+  closePopupWindow();
+  pictureNameInput.value = "";
+  pictureUrlInput.value = "";
+}
+
+function createCard(pictureName, pictureUrl) {
+  const newCard = cardTemplate.content.querySelector('.element').cloneNode(true);
+  const image = newCard.querySelector('.element__image');
   const deleteButton = newCard.querySelector('.element__delete');
+
+  newCard.querySelector('.element__text').textContent = pictureName;
+  image.src = pictureUrl;
+  image.alt = pictureName;
+  image.addEventListener('click', openImageWindow);
+
   deleteButton.addEventListener('click', deleteButtonClicked);
-  cardsContainer.prepend(newCard);
+  newCard.addEventListener('click', handleLikeButton);
+  return newCard;
+}
+
+function renderCard(pictureName, pictureUrl) {
+  cardsContainer.prepend(createCard(pictureName, pictureUrl));
 }
 
 function submitNewProfileData(name, description) {
-  const profileName = document.querySelector('.profile__title-text');
-  const profileDescription = document.querySelector('.profile__description');
   profileName.textContent = name;
   profileDescription.textContent = description;
 }
 
-function likeButtonClicked(event) {
+function handleLikeButton(event) {
   const target = event.target;
-  if (target.classList.contains('element__like_unchecked')) {
-    target.classList.remove('element__like_unchecked')
-    target.classList.add('element__like_checked')
-    console.log(target.previousElementSibling.textContent);
-  } else if (event.target.classList.contains('element__like_checked')) {
-    target.classList.remove('element__like_checked')
-    target.classList.add('element__like_unchecked')
-    console.log(target.previousElementSibling.textContent);
-  }
+  target.classList.toggle('element__like_checked')
 }
 
 function deleteButtonClicked(event) {
-  event.target.parentElement.remove();
+  event.target.closest('.element').remove();
 }
-
-// event listeners for existing cards
-cards.forEach(card => card.addEventListener('click', likeButtonClicked));
-cardImages.forEach(image => image.addEventListener('click', openImageWindow))
-deleteButtons.forEach(button => button.addEventListener('click', deleteButtonClicked))
 
 // event listeners for open/close buttons
 editProfileButton.addEventListener('click', openEditProfileWindow);
@@ -117,7 +119,8 @@ addCardButton.addEventListener('click', openAddCardWindow);
 closePopupButtons.forEach(btn => btn.addEventListener('click', closePopupWindow))
 
 // submit buttons
-submitButtons.forEach(button => button.addEventListener('click', popupSubmitButtonClicked));
+editProfileSubmitButton.addEventListener('click', handleSubmitProfileButton);
+saveCardButton.addEventListener('click', handleSaveCardButton);
 
 //fill cards
-initialCards.forEach(c => { addCard(c.name, c.link) })
+initialCards.forEach(c => { renderCard(c.name, c.link) })

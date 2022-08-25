@@ -8,6 +8,7 @@
   background-color: #FFF;
   background-size: 19px 22px;
   border: 0;
+  background-image: url('../../../images/buttons/like-unchecked.svg');
 }
 
 .element__like:hover {
