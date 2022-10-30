@@ -27,33 +27,37 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #000;
+  color: #C4C4C4;
+}
+
+.popup__input:invalid {
+  border-bottom: 1px solid #FF0000;
 }
 
 .popup__input::-webkit-input-placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #000;
+  color: #C4C4C4;
 }
 
 .popup__input::-moz-placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #000;
+  color: #C4C4C4;
 }
 
 .popup__input::-ms-input-placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #000;
+  color: #C4C4C4;
 }
 
 .popup__input::-o-placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  color: #000;
+  color: #C4C4C4;
 }

@@ -43,31 +43,51 @@
     </section>
 
     <section class="popup" id="edit-profile-window">
-      <div class="popup__container ">
+      <div class="popup__container">
         <button class="button popup__close-button" type="button"></button>
-        <h2 class="popup__title ">Редактировать профиль</h2>
-        <form class="popup__form " name="edit-profile">
-          <input class="popup__input " type="text" id="profile-name" placeholder="Имя" required
-            name="profile-name">
-          <input class="popup__input " type="text" id="profile-description" placeholder="Профессия" required
-            name="profile-text">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" name="edit-profile" novalidate>
+          <input class="popup__input" type="text" id="profile-name" placeholder="Имя" required minlength="2"
+            maxlength="40" name="name" pattern="^[a-zA-Zа-яА-Я -]+$"
+            data-pattern-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+          <span class="profile-name-error popup__input-error"></span>
+          <input class="popup__input" type="text" id="profile-description" placeholder="Профессия" required
+            minlength="2" maxlength="200" name="description">
+          <span class="profile-description-error popup__input-error"></span>
           <button class="button popup__submit-button" type="submit" id="edit-profile-submit">Сохранить</button>
         </form>
       </div>
     </section>
 
     <section class="popup" id="add-card-window">
-      <div class="popup__container ">
+      <div class="popup__container">
         <button class="button popup__close-button" type="button"></button>
-        <h2 class="popup__title ">Новое место</h2>
-        <form class="popup__form " name="add-card">
-          <input class="popup__input " type="text" id="card-name" placeholder="Название" required name="profile-name">
-          <input class="popup__input " type="text" id="card-url" placeholder="Ссылка на картинку" required
-            name="profile-text">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="add-card" novalidate>
+          <input class="popup__input" type="text" id="card-name" placeholder="Название" required minlength="2"
+            maxlength="30" name="name" pattern="^[a-zA-Zа-яА-Я -]+$"
+            data-pattern-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+          <span class="card-name-error popup__input-error"></span>
+          <input class="popup__input" type="url" id="card-url" placeholder="Ссылка на картинку" required
+            name="url">
+          <span class="card-url-error popup__input-error"></span>
           <button class="button popup__submit-button" type="submit" id="add-card-submit">Создать</button>
         </form>
       </div>
     </section>
+
+    <section class="popup" id="change-avatar">
+      <div class="popup__container">
+        <button class="button popup__close-button" type="button"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form" name="change-avatar" novalidate>
+          <input class="popup__input" type="url" id="card-url" placeholder="Ссылка на картинку" required
+            name="url">
+          <span class="card-url-error popup__input-error"></span>
+          <button class="button popup__submit-button" type="submit" id="change-avatar-submit">Сохранить</button>
+        </form>
+      </div>
+    </section>    
 
     <template id="card-template">
       <div class="element">
@@ -76,12 +96,13 @@
         <div class="element__footer">
           <h2 class="element__text"></h2>
           <button class="button element__like" type="button"></button>
+          
         </div>
       </div>
     </template>
   </main>
 
-  <footer class="footer ">
+  <footer class="footer">
     <p class="footer__text">&copy; 2020 Mesto Russia</p>
   </footer>
   <script src="./script/script.js"></script>
