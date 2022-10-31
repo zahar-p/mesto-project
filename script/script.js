@@ -97,7 +97,13 @@ function submitNewProfileData(name, description) {
 
 function handleLikeButton(event) {
   const target = event.target;
+  let cnt = target.nextElementSibling;
   target.classList.toggle('element__like_checked')
+  if (target.classList.contains('element__like_checked')) {
+    cnt.textContent = Number(cnt.textContent) + 1;
+  } else {
+    cnt.textContent = Number(cnt.textContent) - 1;
+  }
 }
 
 function handleDeleteCardButton(event) {
@@ -140,7 +146,6 @@ function handleKeyboardKeyUp(evt) {
 document.addEventListener('keyup', handleKeyboardKeyUp)
 
 // submit forms listeners
-console.log(document.forms)
 document.forms["edit-profile"].addEventListener('submit', handleEditProfileSubmit);
 document.forms["add-card"].addEventListener('submit', handleSaveCardSubmit);
 

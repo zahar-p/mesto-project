@@ -68,8 +68,7 @@
             maxlength="30" name="name" pattern="^[a-zA-Zа-яА-Я -]+$"
             data-pattern-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
           <span class="card-name-error popup__input-error"></span>
-          <input class="popup__input" type="url" id="card-url" placeholder="Ссылка на картинку" required
-            name="url">
+          <input class="popup__input" type="url" id="card-url" placeholder="Ссылка на картинку" required name="url">
           <span class="card-url-error popup__input-error"></span>
           <button class="button popup__submit-button" type="submit" id="add-card-submit">Создать</button>
         </form>
@@ -81,13 +80,12 @@
         <button class="button popup__close-button" type="button"></button>
         <h2 class="popup__title">Обновить аватар</h2>
         <form class="popup__form" name="change-avatar" novalidate>
-          <input class="popup__input" type="url" id="card-url" placeholder="Ссылка на картинку" required
-            name="url">
+          <input class="popup__input" type="url" id="card-url" placeholder="Ссылка на картинку" required name="url">
           <span class="card-url-error popup__input-error"></span>
           <button class="button popup__submit-button" type="submit" id="change-avatar-submit">Сохранить</button>
         </form>
       </div>
-    </section>    
+    </section>
 
     <template id="card-template">
       <div class="element">
@@ -95,8 +93,11 @@
         <img src="" class="element__image" alt="">
         <div class="element__footer">
           <h2 class="element__text"></h2>
-          <button class="button element__like" type="button"></button>
-          
+          <div class="element__like-container" >
+            <button class="button element__like" type="button"></button>
+            <p class="element__like-counter">10</p>
+          </div>
+
         </div>
       </div>
     </template>
