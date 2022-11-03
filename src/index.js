@@ -16,18 +16,17 @@ const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template');
+const progileImage = document.querySelector('.profile__image');
 
 // popups and buttons
 const editProfilePopup = document.querySelector('#edit-profile-window');
-const editProfileCloseButton = editProfilePopup.querySelector('.popup__close-button');
+const editAvatarPopup = document.querySelector('#change-avatar');
 
 const addCardPopup = document.querySelector('#add-card-window');
-const addCardCloseButton = addCardPopup.querySelector('.popup__close-button');
 
 const showPicturePopup = document.querySelector(`#display-picture`);
 const popupImage = showPicturePopup.querySelector('.popup__image');
 const popupImageDesc = showPicturePopup.querySelector('.popup__image-description');
-const showPictureCloseButton = showPicturePopup.querySelector('.popup__close-button');
 
 const popups = document.querySelectorAll('.popup');
 
@@ -37,6 +36,11 @@ function openPopup(window) {
 
 function closePopup(window) {
   window.classList.toggle('popup_visible');
+}
+
+function openChangeAvatarPopup() {
+  document.forms["change-avatar"].url.value = progileImage.textContent;
+  openPopup(editAvatarPopup);
 }
 
 function openEditProfilePopup() {
@@ -63,6 +67,13 @@ function handleEditProfileSubmit(event) {
   submitNewProfileData(document.forms["edit-profile"].name.value, document.forms["edit-profile"].description.value);
   closePopup(editProfilePopup);
 }
+
+function handleChangeAvatarSubmit(event) {
+  event.preventDefault();
+  submitNewAvatar(document.forms["change-avatar"].url.value);
+  closePopup(editAvatarPopup);
+}
+
 
 function handleSaveCardSubmit(event) {
   event.preventDefault();
@@ -97,6 +108,13 @@ function submitNewProfileData(name, description) {
   profileDescription.textContent = description;
 }
 
+function submitNewAvatar(url) {
+  console.log(url)
+  console.log(profileName)
+  progileImage.src = url;
+  console.log(profileName)
+}
+
 function handleLikeButton(event) {
   const target = event.target;
   let cnt = target.nextElementSibling;
@@ -127,6 +145,7 @@ function closeActivePopup() {
 // event listeners for open/close buttons
 editProfileButton.addEventListener('click', openEditProfilePopup);
 addCardButton.addEventListener('click', openAddCardPopup);
+progileImage.addEventListener('click', openChangeAvatarPopup);
 
 // Mouse click
 function handleMouseClick(evt) {
@@ -150,6 +169,7 @@ document.addEventListener('keyup', handleKeyboardKeyUp)
 // submit forms listeners
 document.forms["edit-profile"].addEventListener('submit', handleEditProfileSubmit);
 document.forms["add-card"].addEventListener('submit', handleSaveCardSubmit);
+document.forms["change-avatar"].addEventListener('submit', handleChangeAvatarSubmit);
 
 //fill cards
 initialCards.forEach(c => { renderCard(c.name, c.link) })
