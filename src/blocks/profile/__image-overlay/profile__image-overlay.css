@@ -11,13 +11,9 @@
   align-items: center;
   justify-content: center;
 
-
-  /* opacity: 0.5;
-  transition: opacity 0.5s linear; */
-
   background-color: rgba(0,0,0,0.8);
   
   visibility: hidden;
-  transition: visibility 1s linear; 
+  transition: visibility 1s, opacity 1s linear; 
   
 }
