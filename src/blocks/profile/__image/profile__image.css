@@ -3,14 +3,14 @@
   object-position: center;
   width: 120px;
   height: 120px;
-  margin-right: 30px;
+  /* margin-right: 30px; */
   border-radius: 50%;
   border: 0;
   margin-top: 0px;
 }
 
-@media screen and (max-width: 690px) {
+/* @media screen and (max-width: 690px) {
   .profile__image {
-    margin: auto;
+    margin-right: 0px;;
   }
-}
+} */

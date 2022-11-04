@@ -16,7 +16,8 @@ const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template');
-const progileImage = document.querySelector('.profile__image');
+const profileImage = document.querySelector('.profile__image');
+const profileImageOverlay = document.querySelector('.profile__image-overlay');
 
 // popups and buttons
 const editProfilePopup = document.querySelector('#edit-profile-window');
@@ -39,7 +40,7 @@ function closePopup(window) {
 }
 
 function openChangeAvatarPopup() {
-  document.forms["change-avatar"].url.value = progileImage.textContent;
+  document.forms["change-avatar"].url.value = profileImage.src;
   openPopup(editAvatarPopup);
 }
 
@@ -111,7 +112,7 @@ function submitNewProfileData(name, description) {
 function submitNewAvatar(url) {
   console.log(url)
   console.log(profileName)
-  progileImage.src = url;
+  profileImage.src = url;
   console.log(profileName)
 }
 
@@ -145,7 +146,7 @@ function closeActivePopup() {
 // event listeners for open/close buttons
 editProfileButton.addEventListener('click', openEditProfilePopup);
 addCardButton.addEventListener('click', openAddCardPopup);
-progileImage.addEventListener('click', openChangeAvatarPopup);
+profileImageOverlay.addEventListener('click', openChangeAvatarPopup);
 
 // Mouse click
 function handleMouseClick(evt) {

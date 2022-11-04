@@ -28,6 +28,9 @@
 @import url('../blocks/profile/profile.css');
 @import url('../blocks/profile/__container/profile__container.css');
 @import url('../blocks/profile/__image/profile__image.css');
+@import url('../blocks/profile/__image-container/profile__image-container.css');
+@import url('../blocks/profile/__image-overlay/profile__image-overlay.css');
+@import url('../blocks/profile/__image-edit/profile__image-edit.css');
 @import url('../blocks/profile/__info/profile__info.css');
 
 @import url('../blocks/profile/__title/profile__title.css');
