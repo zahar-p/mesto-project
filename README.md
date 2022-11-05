@@ -8,8 +8,9 @@
 ### Технологии
 * HTML
 * CSS
+* JavaScript
 
-[Ссылка на проект на GitHub Pages](https://zahar-p.github.io/mesto-project/ "Сервис Место")
+
 
 [Ссылка на репозиторий GitHub](https://github.com/zahar-p/mesto-project "https://zahar-p.github.io/mesto-project/")
 

@@ -1,4 +1,4 @@
-import './styles/index.css'
+import '../styles/index.css'
 
 const initialCards = [
   { name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' },
@@ -9,19 +9,15 @@ const initialCards = [
   { name: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg' }
 ];
 
-import { enableValidation } from './components/validate.js'
-import { renderCard } from './components/card.js'
-import { closePopup, openChangeAvatarPopup, openEditProfilePopup, openAddCardPopup, handleSaveCardSubmit } from './components/modal.js'
-import { popups } from './components/modal.js'
-import { handleMouseClick, handleKeyboardKeyUp } from './components/utils.js'
+import { enableValidation } from './validate.js'
+import { renderCard } from './card.js'
+import { closePopup, openChangeAvatarPopup, openEditProfilePopup, openAddCardPopup, editAvatarPopup, handleSaveCardSubmit } from './modal.js'
+import { popups, profileName, profileDescription, profileImage, profileImageOverlay } from './modal.js'
+import { handleMouseClick, handleKeyboardKeyDown } from './utils.js'
 
 // Main page fields and buttons
-const profileName = document.querySelector('.profile__title-text');
-const profileDescription = document.querySelector('.profile__description');
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
-const profileImage = document.querySelector('.profile__image');
-const profileImageOverlay = document.querySelector('.profile__image-overlay');
 
 function handleEditProfileSubmit(event) {
   event.preventDefault();
@@ -60,7 +56,7 @@ document.forms["change-avatar"].addEventListener('submit', handleChangeAvatarSub
 popups.forEach(p => {
   p.addEventListener('click', handleMouseClick)
 });
-document.addEventListener('keyup', handleKeyboardKeyUp)
+document.addEventListener('keydown', handleKeyboardKeyDown)
 
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове

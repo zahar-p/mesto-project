@@ -1,9 +1,15 @@
 import { renderCard } from './card.js'
+import { handleKeyboardKeyDown } from './utils.js'
+export const profileName = document.querySelector('.profile__title-text');
+export const profileDescription = document.querySelector('.profile__description');
+export const profileImage = document.querySelector('.profile__image');
+export const profileImageOverlay = document.querySelector('.profile__image-overlay');
+
 
 // popups and buttons
 const showPicturePopup = document.querySelector(`#display-picture`);
 const editProfilePopup = document.querySelector('#edit-profile-window');
-const editAvatarPopup = document.querySelector('#change-avatar');
+export const editAvatarPopup = document.querySelector('#change-avatar');
 const addCardPopup = document.querySelector('#add-card-window');
 
 const popupImage = showPicturePopup.querySelector('.popup__image');
@@ -11,12 +17,14 @@ const popupImageDesc = showPicturePopup.querySelector('.popup__image-description
 
 export const popups = document.querySelectorAll('.popup');
 
-function openPopup(window) {
-  window.classList.toggle('popup_visible');
+function openPopup(popupWindow) {
+  popupWindow.addEventListener('keydown', handleKeyboardKeyDown)
+  popupWindow.classList.toggle('popup_visible');
 }
 
-export function closePopup(window) {
-  window.classList.toggle('popup_visible');
+export function closePopup(popupWindow) {
+  popupWindow.classList.toggle('popup_visible');
+  popupWindow.removeEventListener('keydown', handleKeyboardKeyDown)
 }
 
 export function openChangeAvatarPopup() {

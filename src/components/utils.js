@@ -8,7 +8,7 @@ export function handleMouseClick(evt) {
   }
 }
 // Keyboard key up
-export function handleKeyboardKeyUp(evt) {
+export function handleKeyboardKeyDown(evt) {
   if (evt.key === 'Escape') {
     closeActivePopup();
   }
