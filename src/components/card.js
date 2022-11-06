@@ -26,8 +26,10 @@ function renderCard(pictureName, pictureUrl) {
 
 function handleLikeButton(event) {
   const target = event.target;
-  let cnt = target.nextElementSibling;
+  const cnt = target.nextElementSibling;
   target.classList.toggle('element__like_checked')
+  // я поспешил добавить счетчик лайков здест, взаимодействие с сервером это следующая итерация.
+  // в части про взаимодействие с сервером я это сделаю как надо. Давайте оставим как есть, чтобв не убирать счетчик в этой ветке?
   if (target.classList.contains('element__like_checked')) {
     cnt.textContent = Number(cnt.textContent) + 1;
   } else {

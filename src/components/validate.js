@@ -1,4 +1,6 @@
 // Validation
+let validationArgs = {};
+
 const isValid = (form, input, args) => {
   if (input.validity.patternMismatch) {
     input.setCustomValidity(input.dataset.patternErrorMessage);
@@ -43,7 +45,13 @@ const toggleButtonState = (inputs, button, args) => {
   }
 }
 
+export function disablePopupButton(button) {
+  button.disabled = true;
+  button.classList.add(validationArgs.inactiveButtonClass);
+}
+
 export function enableValidation(args) {
+  validationArgs = args;
   const popupForms = Array.from(document.querySelectorAll(args.formSelector));
   popupForms.forEach(f => {
     const submitButton = f.querySelector(args.submitButtonSelector);

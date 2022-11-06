@@ -12,8 +12,8 @@ const initialCards = [
 import { enableValidation } from './validate.js'
 import { renderCard } from './card.js'
 import { closePopup, openChangeAvatarPopup, openEditProfilePopup, openAddCardPopup, editAvatarPopup, handleSaveCardSubmit } from './modal.js'
-import { popups, profileName, profileDescription, profileImage, profileImageOverlay } from './modal.js'
-import { handleMouseClick, handleKeyboardKeyDown } from './utils.js'
+import { popups, profileName, profileDescription, profileImage, profileImageOverlay, editProfilePopup  } from './modal.js'
+import { handleMouseClick } from './utils.js'
 
 // Main page fields and buttons
 const editProfileButton = document.querySelector('.profile__edit-button');
@@ -56,7 +56,6 @@ document.forms["change-avatar"].addEventListener('submit', handleChangeAvatarSub
 popups.forEach(p => {
   p.addEventListener('click', handleMouseClick)
 });
-document.addEventListener('keydown', handleKeyboardKeyDown)
 
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
