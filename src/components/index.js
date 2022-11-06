@@ -1,20 +1,22 @@
 import '../styles/index.css'
 
-const initialCards = [
-  { name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' },
-  { name: 'Челябинская область', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg' },
-  { name: 'Иваново', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg' },
-  { name: 'Камчатка', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg' },
-  { name: 'Холмогорский район', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg' },
-  { name: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg' }
-];
+// const initialCards = [
+//   { name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' },
+//   { name: 'Челябинская область', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg' },
+//   { name: 'Иваново', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg' },
+//   { name: 'Камчатка', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg' },
+//   { name: 'Холмогорский район', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg' },
+//   { name: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg' }
+// ];
+
+let userId = '';
 
 import { enableValidation } from './validate.js'
 import { renderCard } from './card.js'
 import { closePopup, openChangeAvatarPopup, openEditProfilePopup, openAddCardPopup, editAvatarPopup, handleSaveCardSubmit } from './modal.js'
-import { popups, profileName, profileDescription, profileImage, profileImageOverlay, editProfilePopup  } from './modal.js'
+import { popups, profileName, profileDescription, profileImage, profileImageOverlay, editProfilePopup } from './modal.js'
 import { handleMouseClick } from './utils.js'
-
+import { getUserInfo, getUserCards } from './api.js'
 // Main page fields and buttons
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
@@ -68,5 +70,36 @@ enableValidation({
   errorClass: 'popup__error_visible'
 });
 
+
+function populateUserInfo( { about, avatar, cohort, name, _id }) {
+  userId = _id;
+  submitNewAvatar(avatar);
+  submitNewProfileData(name, about);
+}
+
+
+
+//fill user
+getUserInfo()
+  .then(res => res.json())
+  .then(data => {
+    populateUserInfo(data);
+  })
+  .catch(err => {
+    console.log(`Error: ${err}`);
+  });
+
 //fill cards
-initialCards.forEach(c => { renderCard(c.name, c.link) })
+getUserCards()
+.then(res => res.json())
+.then(data => {
+  data.forEach(
+    d => renderCard( userId, d)
+  );
+})
+.catch(err => {
+  console.log(`Error: ${err}`);
+});
+
+
+//initialCards.forEach(c => { renderCard(c.name, c.link) })

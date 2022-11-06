@@ -4,24 +4,38 @@ import { openImagePopup } from './modal.js'
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template');
 
-function createCard(pictureName, pictureUrl) {
+function createCard(userId, { likes, _id, name, link, owner, ...rest }) {
   const newCard = cardTemplate.content.querySelector('.element').cloneNode(true);
+  const likeCntHoder = newCard.querySelector('.element__like-counter');
   const image = newCard.querySelector('.element__image');
   const deleteButton = newCard.querySelector('.element__delete');
   const likeButton = newCard.querySelector('.element__like');
 
-  newCard.querySelector('.element__text').textContent = pictureName;
-  image.src = pictureUrl;
-  image.alt = pictureName;
+  console.log(likes)
+  newCard.querySelector('.element__text').textContent = name;
+  image.src = link;
+  image.alt = name;
   image.addEventListener('click', openImagePopup);
+  likeCntHoder.textContent = likes.length;
+  
+  if (owner._id !== userId) {
+    deleteButton.classList.add('element__delete_hidden')
+  }
+
+  
+  if (likes.find( user => { user._id === userId })) {
+    likeButton.classList.add('element__like_checked')
+  }
 
   deleteButton.addEventListener('click', handleDeleteCardButton);
   likeButton.addEventListener('click', handleLikeButton);
   return newCard;
 }
 
-function renderCard(pictureName, pictureUrl) {
-  cardsContainer.prepend(createCard(pictureName, pictureUrl));
+function renderCard(userId, card) {
+  console.log(userId)
+  console.log(card)
+  cardsContainer.prepend(createCard(userId, card));
 }
 
 function handleLikeButton(event) {
