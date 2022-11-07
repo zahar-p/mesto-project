@@ -1,5 +1,6 @@
 
 import { openImagePopup } from './modal.js'
+import { deleteCard, likeCard, unlikeCard } from './api.js'
 
 const cardsContainer = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template');
@@ -11,48 +12,72 @@ function createCard(userId, { likes, _id, name, link, owner, ...rest }) {
   const deleteButton = newCard.querySelector('.element__delete');
   const likeButton = newCard.querySelector('.element__like');
 
-  console.log(likes)
+  newCard.id = _id;
   newCard.querySelector('.element__text').textContent = name;
   image.src = link;
   image.alt = name;
   image.addEventListener('click', openImagePopup);
   likeCntHoder.textContent = likes.length;
-  
+  deleteButton.dataset.cardId = _id
+  likeButton.dataset.cardId = _id
+
   if (owner._id !== userId) {
     deleteButton.classList.add('element__delete_hidden')
   }
-
-  
-  if (likes.find( user => { user._id === userId })) {
+  if (likes.some(user => user._id === userId)) {
     likeButton.classList.add('element__like_checked')
   }
-
   deleteButton.addEventListener('click', handleDeleteCardButton);
   likeButton.addEventListener('click', handleLikeButton);
   return newCard;
 }
 
 function renderCard(userId, card) {
-  console.log(userId)
-  console.log(card)
   cardsContainer.prepend(createCard(userId, card));
 }
 
 function handleLikeButton(event) {
   const target = event.target;
   const cnt = target.nextElementSibling;
-  target.classList.toggle('element__like_checked')
-  // я поспешил добавить счетчик лайков здест, взаимодействие с сервером это следующая итерация.
-  // в части про взаимодействие с сервером я это сделаю как надо. Давайте оставим как есть, чтобв не убирать счетчик в этой ветке?
-  if (target.classList.contains('element__like_checked')) {
-    cnt.textContent = Number(cnt.textContent) + 1;
+  const liked = !target.classList.contains('element__like_checked')
+
+  let cardHandlePromise = null;
+
+  if (liked) {
+    cardHandlePromise = likeCard(target.dataset.cardId)
   } else {
-    cnt.textContent = Number(cnt.textContent) - 1;
+    cardHandlePromise = unlikeCard(target.dataset.cardId)
   }
+
+  cardHandlePromise
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
+    .then(data => {
+      target.classList.toggle('element__like_checked')
+      cnt.textContent = data.likes.length;
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }
 
 function handleDeleteCardButton(event) {
-  event.target.closest('.element').remove();
+  
+  deleteCard(event.target.dataset.cardId)
+    .then(res => {
+      if (res.ok) {
+        event.target.closest('.element').remove()
+      } else {
+      return Promise.reject(`Ошибка: ${res.status}`)
+      }
+    })
+    .catch(err => {
+      console.log(`Error: ${err}`);
+    });
 }
 
 export { renderCard }

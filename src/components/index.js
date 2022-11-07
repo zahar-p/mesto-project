@@ -1,29 +1,27 @@
 import '../styles/index.css'
 
-// const initialCards = [
-//   { name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' },
-//   { name: 'Челябинская область', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg' },
-//   { name: 'Иваново', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg' },
-//   { name: 'Камчатка', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg' },
-//   { name: 'Холмогорский район', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg' },
-//   { name: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg' }
-// ];
-
 let userId = '';
+const savingButtonText = 'Сохранение...';
 
-import { enableValidation } from './validate.js'
+import { enableValidation, disablePopupButton } from './validate.js'
 import { renderCard } from './card.js'
-import { closePopup, openChangeAvatarPopup, openEditProfilePopup, openAddCardPopup, editAvatarPopup, handleSaveCardSubmit } from './modal.js'
-import { popups, profileName, profileDescription, profileImage, profileImageOverlay, editProfilePopup } from './modal.js'
+import { closePopup, openChangeAvatarPopup, openEditProfilePopup, openAddCardPopup, editAvatarPopup } from './modal.js'
+import { popups, profileName, profileDescription, profileImage, profileImageOverlay, editProfilePopup, addCardPopup } from './modal.js'
 import { handleMouseClick } from './utils.js'
-import { getUserInfo, getUserCards } from './api.js'
+import { getUserInfo, getUserCards, saveProfileData, saveCard, saveProfileAvatar } from './api.js'
+
 // Main page fields and buttons
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
 
+const submitProfileDataButton = editProfilePopup.querySelector('.popup__submit-button')
+const submitAvatarButton = editAvatarPopup.querySelector('.popup__submit-button')
+const submitCardButton = addCardPopup.querySelector('.popup__submit-button')
+
+
 function handleEditProfileSubmit(event) {
   event.preventDefault();
-  submitNewProfileData(document.forms["edit-profile"].name.value, document.forms["edit-profile"].description.value);
+  patchProfileData(document.forms["edit-profile"].name.value, document.forms["edit-profile"].description.value);
   closePopup(editProfilePopup);
 }
 
@@ -32,9 +30,45 @@ function submitNewProfileData(name, description) {
   profileDescription.textContent = description;
 }
 
+// SUBMIT profile data
+function patchProfileData(name, about) {
+  submitCardButton.textContent = savingButtonText;
+  saveProfileData(name, about)
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
+    .then(data => {
+      submitNewProfileData(data.name, data.about)
+    })
+    .catch(err => {
+      console.log(`Error: ${err}`);
+    })
+    .finally(
+      submitProfileDataButton.textContent = 'Сохранить'
+    );
+}
+
 function handleChangeAvatarSubmit(event) {
   event.preventDefault();
-  submitNewAvatar(document.forms["change-avatar"].url.value);
+  const link = document.forms["change-avatar"].url.value
+  submitAvatarButton.textContent = savingButtonText
+  saveProfileAvatar(link)
+    .then(res => {
+      if (res.ok) {
+        submitNewAvatar(link);
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`)
+      }
+    })
+    .catch(err => {
+      console.log(`Error: ${err}`);
+    })
+    .finally(
+      submitAvatarButton.textContent = 'Сохранить'
+    );
   closePopup(editAvatarPopup);
 }
 
@@ -42,12 +76,36 @@ function submitNewAvatar(url) {
   profileImage.src = url;
 }
 
+// SUBMIT new card
+function handleSaveCardSubmit(event) {
+  event.preventDefault();
+  submitCardButton.textContent = savingButtonText
+  saveCard(document.forms["add-card"].name.value, document.forms["add-card"].url.value)
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
+    .then(data => {
+      renderCard(userId, data);
+    })
+    .catch(err => {
+      console.log(`Error: ${err}`);
+    })
+    .finally(
+      submitCardButton.textContent = 'Создать'
+    );
+
+  closePopup(addCardPopup);
+  document.forms.reset;
+  disablePopupButton(document.forms["add-card"].querySelector('.popup__submit-button'))
+}
+
 // event listeners for open/close buttons
 editProfileButton.addEventListener('click', openEditProfilePopup);
 addCardButton.addEventListener('click', openAddCardPopup);
 profileImageOverlay.addEventListener('click', openChangeAvatarPopup);
-
-
 
 // submit forms listeners
 document.forms["edit-profile"].addEventListener('submit', handleEditProfileSubmit);
@@ -71,17 +129,20 @@ enableValidation({
 });
 
 
-function populateUserInfo( { about, avatar, cohort, name, _id }) {
+function populateUserInfo({ about, avatar, cohort, name, _id }) {
   userId = _id;
   submitNewAvatar(avatar);
   submitNewProfileData(name, about);
 }
 
-
-
 //fill user
 getUserInfo()
-  .then(res => res.json())
+  .then(res => {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
   .then(data => {
     populateUserInfo(data);
   })
@@ -91,15 +152,17 @@ getUserInfo()
 
 //fill cards
 getUserCards()
-.then(res => res.json())
-.then(data => {
-  data.forEach(
-    d => renderCard( userId, d)
-  );
-})
-.catch(err => {
-  console.log(`Error: ${err}`);
-});
-
-
-//initialCards.forEach(c => { renderCard(c.name, c.link) })
+  .then(res => {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .then(data => {
+    data.forEach(
+      d => renderCard(userId, d)
+    );
+  })
+  .catch(err => {
+    console.log(`Error: ${err}`);
+  });

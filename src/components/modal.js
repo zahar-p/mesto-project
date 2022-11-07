@@ -1,6 +1,5 @@
-import { renderCard } from './card.js'
 import { handleKeyboardKeyDown } from './utils.js'
-import { disablePopupButton } from './validate.js'
+
 export const profileName = document.querySelector('.profile__title-text');
 export const profileDescription = document.querySelector('.profile__description');
 export const profileImage = document.querySelector('.profile__image');
@@ -11,7 +10,7 @@ export const profileImageOverlay = document.querySelector('.profile__image-overl
 const showPicturePopup = document.querySelector(`#display-picture`);
 export const editProfilePopup = document.querySelector('#edit-profile-window');
 export const editAvatarPopup = document.querySelector('#change-avatar');
-const addCardPopup = document.querySelector('#add-card-window');
+export const addCardPopup = document.querySelector('#add-card-window');
 
 const popupImage = showPicturePopup.querySelector('.popup__image');
 const popupImageDesc = showPicturePopup.querySelector('.popup__image-description');
@@ -53,14 +52,7 @@ export function openImagePopup(event) {
   openPopup(showPicturePopup);
 }
 
-// SUBMIT handlers
-export function handleSaveCardSubmit(event) {
-  event.preventDefault();
-  renderCard(document.forms["add-card"].name.value, document.forms["add-card"].url.value);
-  closePopup(addCardPopup);
-  document.forms.reset;
-  disablePopupButton(document.forms["add-card"].querySelector('.popup__submit-button'))
-}
+
 
 export function closeActivePopup() {
   popups.forEach(p => {
