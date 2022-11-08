@@ -52,8 +52,6 @@ export function openImagePopup(event) {
   openPopup(showPicturePopup);
 }
 
-
-
 export function closeActivePopup() {
   popups.forEach(p => {
     if (p.classList.contains('popup_visible')) {

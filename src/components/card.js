@@ -22,7 +22,7 @@ function createCard(userId, { likes, _id, name, link, owner, ...rest }) {
   likeButton.dataset.cardId = _id
 
   if (owner._id !== userId) {
-    deleteButton.classList.add('element__delete_hidden')
+   deleteButton.classList.add('element__delete_hidden')
   }
   if (likes.some(user => user._id === userId)) {
     likeButton.classList.add('element__like_checked')
@@ -50,12 +50,6 @@ function handleLikeButton(event) {
   }
 
   cardHandlePromise
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
     .then(data => {
       target.classList.toggle('element__like_checked')
       cnt.textContent = data.likes.length;
@@ -66,14 +60,9 @@ function handleLikeButton(event) {
 }
 
 function handleDeleteCardButton(event) {
-  
   deleteCard(event.target.dataset.cardId)
-    .then(res => {
-      if (res.ok) {
-        event.target.closest('.element').remove()
-      } else {
-      return Promise.reject(`Ошибка: ${res.status}`)
-      }
+    .then(data => {
+      event.target.closest('.element').remove()
     })
     .catch(err => {
       console.log(`Error: ${err}`);

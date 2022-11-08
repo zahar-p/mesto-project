@@ -7,18 +7,26 @@ const headerInfoJson = {
   'Content-Type': 'application/json'
 }
 
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return Promise.reject(`Ошибка: ${res.status}`)
+  }
+}
+
 export function getUserInfo() {
   return fetch(
     `${urlBase}/${cohortId}/users/me`,
     { headers: headerInfoJson }
-  )
+  ).then(checkResponse)
 }
 
 export function getUserCards() {
   return fetch(
     `${urlBase}/${cohortId}/cards`,
     { headers: headerInfoJson }
-  )
+  ).then(checkResponse)
 }
 
 export function saveProfileData(name, about) {
@@ -32,7 +40,7 @@ export function saveProfileData(name, about) {
         about: about
       })
     }
-  )
+  ).then(checkResponse)
 }
 
 export function saveProfileAvatar(link) {
@@ -45,7 +53,7 @@ export function saveProfileAvatar(link) {
         avatar: link,
       })
     }
-  )
+  ).then(checkResponse)
 }
 
 export function saveCard(name, link) {
@@ -59,7 +67,7 @@ export function saveCard(name, link) {
         link: link
       })
     }
-  )
+  ).then(checkResponse)
 }
 
 export function deleteCard(id) {
@@ -68,7 +76,7 @@ export function deleteCard(id) {
     {
       method: 'DELETE',
       headers: headerInfoJson
-    })
+    }).then(checkResponse)
 }
 
 export function likeCard(id) {
@@ -77,7 +85,7 @@ export function likeCard(id) {
     {
       method: 'PUT',
       headers: headerInfoJson
-    })
+    }).then(checkResponse)
 }
 
 export function unlikeCard(id) {
@@ -86,5 +94,5 @@ export function unlikeCard(id) {
     {
       method: 'DELETE',
       headers: headerInfoJson
-    })
+    }).then(checkResponse)
 }
