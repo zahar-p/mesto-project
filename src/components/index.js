@@ -7,7 +7,7 @@ import { enableValidation, disablePopupButton } from './validate.js'
 import { renderCard } from './card.js'
 import { closePopup, openChangeAvatarPopup, openEditProfilePopup, openAddCardPopup, editAvatarPopup } from './modal.js'
 import { popups, profileName, profileDescription, profileImage, profileImageOverlay, editProfilePopup, addCardPopup } from './modal.js'
-import { handleMouseClick } from './utils.js'
+import { handleMouseClick, handleKeyboardKeyDown } from './utils.js'
 import { getUserInfo, getUserCards, saveProfileData, saveCard, saveProfileAvatar } from './api.js'
 
 // Main page fields and buttons
@@ -22,7 +22,6 @@ const submitCardButton = addCardPopup.querySelector('.popup__submit-button')
 function handleEditProfileSubmit(event) {
   event.preventDefault();
   patchProfileData(document.forms["edit-profile"].name.value, document.forms["edit-profile"].description.value);
-  closePopup(editProfilePopup);
 }
 
 function submitNewProfileData(name, description) {
@@ -30,18 +29,22 @@ function submitNewProfileData(name, description) {
   profileDescription.textContent = description;
 }
 
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
 // SUBMIT profile data
 function patchProfileData(name, about) {
-  submitCardButton.textContent = savingButtonText;
+  // вот этот код как в лекции, в разметке меняет, визуально не меняет  
+  submitProfileDataButton.textContent = savingButtonText;
   saveProfileData(name, about)
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
     .then(data => {
       submitNewProfileData(data.name, data.about)
+      closePopup(editProfilePopup);
     })
     .catch(err => {
       console.log(`Error: ${err}`);
@@ -51,17 +54,15 @@ function patchProfileData(name, about) {
     );
 }
 
+// SUBMIT avatar change
 function handleChangeAvatarSubmit(event) {
   event.preventDefault();
   const link = document.forms["change-avatar"].url.value
   submitAvatarButton.textContent = savingButtonText
   saveProfileAvatar(link)
-    .then(res => {
-      if (res.ok) {
-        submitNewAvatar(link);
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
+    .then(data => {
+      submitNewAvatar(data.avatar);
+      closePopup(editAvatarPopup);
     })
     .catch(err => {
       console.log(`Error: ${err}`);
@@ -69,7 +70,6 @@ function handleChangeAvatarSubmit(event) {
     .finally(
       submitAvatarButton.textContent = 'Сохранить'
     );
-  closePopup(editAvatarPopup);
 }
 
 function submitNewAvatar(url) {
@@ -81,14 +81,11 @@ function handleSaveCardSubmit(event) {
   event.preventDefault();
   submitCardButton.textContent = savingButtonText
   saveCard(document.forms["add-card"].name.value, document.forms["add-card"].url.value)
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
     .then(data => {
       renderCard(userId, data);
+      closePopup(addCardPopup);
+      document.forms.reset;
+      disablePopupButton(document.forms["add-card"].querySelector('.popup__submit-button'))
     })
     .catch(err => {
       console.log(`Error: ${err}`);
@@ -96,10 +93,6 @@ function handleSaveCardSubmit(event) {
     .finally(
       submitCardButton.textContent = 'Создать'
     );
-
-  closePopup(addCardPopup);
-  document.forms.reset;
-  disablePopupButton(document.forms["add-card"].querySelector('.popup__submit-button'))
 }
 
 // event listeners for open/close buttons
@@ -116,6 +109,9 @@ document.forms["change-avatar"].addEventListener('submit', handleChangeAvatarSub
 popups.forEach(p => {
   p.addEventListener('click', handleMouseClick)
 });
+
+// почему то без этого не ловится Esc, если фокус не в инпуте
+document.addEventListener('keydown', handleKeyboardKeyDown)
 
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
@@ -135,32 +131,12 @@ function populateUserInfo({ about, avatar, cohort, name, _id }) {
   submitNewProfileData(name, about);
 }
 
-//fill user
-getUserInfo()
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .then(data => {
-    populateUserInfo(data);
-  })
-  .catch(err => {
-    console.log(`Error: ${err}`);
-  });
-
-//fill cards
-getUserCards()
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .then(data => {
-    data.forEach(
-      d => renderCard(userId, d)
+//fill user and cards
+Promise.all([getUserInfo(), getUserCards()])
+  .then(([userData, cards]) => {
+    populateUserInfo(userData);
+    cards.forEach(
+      c => renderCard(userId, c)
     );
   })
   .catch(err => {
