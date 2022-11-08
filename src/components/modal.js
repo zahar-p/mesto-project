@@ -18,13 +18,13 @@ const popupImageDesc = showPicturePopup.querySelector('.popup__image-description
 export const popups = document.querySelectorAll('.popup');
 
 function openPopup(popupWindow) {
-  popupWindow.addEventListener('keydown', handleKeyboardKeyDown)
-  popupWindow.classList.toggle('popup_visible');
+  popupWindow.classList.add('popup_visible');
+  document.addEventListener('keydown', handleKeyboardKeyDown)
 }
 
 export function closePopup(popupWindow) {
-  popupWindow.classList.toggle('popup_visible');
-  popupWindow.removeEventListener('keydown', handleKeyboardKeyDown)
+  popupWindow.classList.remove('popup_visible');
+  document.removeEventListener('keydown', handleKeyboardKeyDown)
 }
 
 export function openChangeAvatarPopup() {

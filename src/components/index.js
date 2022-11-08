@@ -39,19 +39,21 @@ function sleep(milliseconds) {
 
 // SUBMIT profile data
 function patchProfileData(name, about) {
-  // вот этот код как в лекции, в разметке меняет, визуально не меняет  
+  //  да, с таймаутами стало видно ) 
   submitProfileDataButton.textContent = savingButtonText;
-  saveProfileData(name, about)
-    .then(data => {
-      submitNewProfileData(data.name, data.about)
-      closePopup(editProfilePopup);
-    })
-    .catch(err => {
-      console.log(`Error: ${err}`);
-    })
-    .finally(
-      submitProfileDataButton.textContent = 'Сохранить'
-    );
+  setTimeout(() => {
+    saveProfileData(name, about)
+      .then(data => {
+        submitNewProfileData(data.name, data.about)
+        closePopup(editProfilePopup);
+      })
+      .catch(err => {
+        console.log(`Error: ${err}`);
+      })
+      .finally(
+        setTimeout(() => { submitProfileDataButton.textContent = 'Сохранить'}, 500)
+      );
+  }, 500)
 }
 
 // SUBMIT avatar change
@@ -109,9 +111,6 @@ document.forms["change-avatar"].addEventListener('submit', handleChangeAvatarSub
 popups.forEach(p => {
   p.addEventListener('click', handleMouseClick)
 });
-
-// почему то без этого не ловится Esc, если фокус не в инпуте
-document.addEventListener('keydown', handleKeyboardKeyDown)
 
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
